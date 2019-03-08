@@ -57,6 +57,7 @@ class Product extends Resource
                     return 'R$ ' . number_format($value, 2, ',', '.');
                 }),
                 Boolean::make('Ativado', 'active'),
+                Boolean::make('Destaque', 'featured'),
             ]),
 
             
@@ -127,6 +128,9 @@ class Product extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new Actions\ChangeProductVisibility(),
+            new Actions\ProductFeatured(),
+        ];
     }
 }
