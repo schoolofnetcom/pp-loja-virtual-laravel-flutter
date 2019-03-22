@@ -16,9 +16,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return ThemeStore(
       title: 'Resultado da busca',
       builder: () {
-        return ProductsList(
-          title: 'Buscando por ' + widget.term
-        );
+        return ProductsList();
       }
     );
   }

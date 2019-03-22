@@ -17,9 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
         return Column(
           children: <Widget>[
             ProductsSearch(),
-            ProductsList(
-              title: 'Informática',
-            )
+            ProductsList()
           ],
         );
       },

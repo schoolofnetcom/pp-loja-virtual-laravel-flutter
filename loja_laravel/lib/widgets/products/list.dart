@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loja_laravel/screens/product_screen.dart';
+import 'package:loja_laravel/utils/data.dart';
 
 class ProductsList extends StatefulWidget {
-  final String title;
-  ProductsList({Key key, this.title}): super(key: key);
-  
   @override
   _ProductsListState createState() => _ProductsListState();
 }
@@ -12,6 +10,22 @@ class ProductsList extends StatefulWidget {
 class _ProductsListState extends State<ProductsList> {
   @override
   Widget build(BuildContext context) {
+    var data = new GraphQLData();
+    var products = data.products;
+    var category = data.category;
+
+    if (products.length == 0) {
+      return Center(
+        child: Card(
+          color: Colors.orange,
+          child: ListTile(
+            leading: Icon(Icons.warning),
+            title:Text('Nenhum produto encontrado')
+          ),
+        ),
+      );
+    }
+
     return Column(
       children: <Widget>[
         Card(
@@ -19,7 +33,7 @@ class _ProductsListState extends State<ProductsList> {
           child: ListTile(
             leading: Icon(Icons.arrow_forward_ios),
             title: Text(
-                widget.title,
+                category["title"],
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold
@@ -31,15 +45,17 @@ class _ProductsListState extends State<ProductsList> {
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: 3,
+          itemCount: products.length,
           itemBuilder: (context, index) {
+            final product = products[index];
+
             return GestureDetector(
               child: Column(
                 children: <Widget>[
                   Image.network('https://picsum.photos/450/250?image=' + index.toString()),
                   ListTile(
-                    title: Text('Produto ' + index.toString()),
-                    subtitle: Text('R\$ 199,00'),
+                    title: Text(product["title"]),
+                    subtitle: Text(product["formatedPrice"]),
                     trailing: Icon(Icons.keyboard_arrow_right),
                   )
                 ],

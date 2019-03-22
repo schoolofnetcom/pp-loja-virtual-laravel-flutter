@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loja_laravel/widgets/theme/drawer.dart';
+import 'package:loja_laravel/widgets/categories/query.dart';
 
 class ThemeStore extends StatefulWidget {
   final String title;
@@ -26,33 +27,38 @@ class _ThemeStoreState extends State<ThemeStore> {
             )
           ),
         ),
-        Scaffold(
-          appBar: AppBar(
-            title: Text(widget.title),
-            backgroundColor: Colors.transparent,
-            elevation: 0.0,
-            textTheme: TextTheme(
-              title: TextStyle(
-                color: Colors.white,
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold
+        CategoriesQuery(
+          builder: (loading, data, error) {
+
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(widget.title),
+                backgroundColor: Colors.transparent,
+                elevation: 0.0,
+                textTheme: TextTheme(
+                  title: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold
+                  )
+                ),
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.shopping_cart),
+                    onPressed: () {
+                      print('open cart');
+                    },
+                  )
+                ],
+              ),
+              backgroundColor: Colors.transparent,
+              drawer: ThemeDrawer(),
+              body: SingleChildScrollView(
+                controller: _scrollController,
+                child: widget.builder(),
               )
-            ),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.shopping_cart),
-                onPressed: () {
-                  print('open cart');
-                },
-              )
-            ],
-          ),
-          backgroundColor: Colors.transparent,
-          drawer: ThemeDrawer(),
-          body: SingleChildScrollView(
-            controller: _scrollController,
-            child: widget.builder(),
-          )
+            );
+          },
         )
       ],
     );

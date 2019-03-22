@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loja_laravel/widgets/products/search.dart';
+import 'package:loja_laravel/utils/data.dart';
 
 class ThemeDrawer extends StatefulWidget {
   @override
@@ -9,6 +10,9 @@ class ThemeDrawer extends StatefulWidget {
 class _ThemeDrawerState extends State<ThemeDrawer> {
   @override
   Widget build(BuildContext context) {
+    var data = new GraphQLData();
+    List categories = data.categories;
+
     return Drawer(
       child: Container(
         padding: EdgeInsets.only(top: 40, left: 10, right: 10),
@@ -28,12 +32,15 @@ class _ThemeDrawerState extends State<ThemeDrawer> {
             ProductsSearch(),
             Expanded(
               child: ListView.builder(
-                itemCount: 6,
+                itemCount: categories.length,
                 itemBuilder: (context, index) {
+                  final category = categories[index];
                   return ListTile(
-                    title: Text("Item " + index.toString()),
+                    title: Text(category['title']),
+                    leading: Icon(Icons.label_important),
                     onTap: () {
-                      print(index);
+                      data.categoryId = category['id'];
+                      Navigator.pushNamed(context, '/');
                     },
                   );
                 }
