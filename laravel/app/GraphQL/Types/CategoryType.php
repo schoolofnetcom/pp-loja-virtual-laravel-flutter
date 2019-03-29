@@ -4,6 +4,7 @@ namespace App\GraphQL\Types;
 
 use App\Category;
 use GraphQL\Type\Definition\Type;
+use Illuminate\Pagination\Paginator;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
 class CategoryType extends GraphQLType
@@ -27,13 +28,24 @@ class CategoryType extends GraphQLType
             ],
             'products' => [
                 'type' => \GraphQL::paginate('product'),
-                'description' => 'Paginated list of the products'
+                'description' => 'Paginated list of the products',
+                'args' => [
+                    'page' => [
+                        'name' => 'page',
+                        'type' => Type::int()
+                    ]
+                ]
             ]
         ];
     }
 
-    protected function resolveProductsField($root)
+    protected function resolveProductsField($root, $args)
     {
+        $page = $args['page'] ?? 1;
+        Paginator::currentPageResolver(function () use($page) {
+            return $page;
+        });
+
         return $root
             ->products()
             ->where('active', true)

@@ -1,18 +1,9 @@
-String categoriesWithProducts = """
-{
-  products {
+String getCategoryById = """
+query getCategoryById(\$id: Int, \$page: Int){
+  categories(id: \$id) {
     id,
     title,
-    sku,
-    description,
-    stock,
-    price,
-    formatedPrice
-  },
-  categories {
-    id,
-    title,
-    products {
+    products(page: \$page) {
       total,
       to,
       current_page,

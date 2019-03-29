@@ -3,6 +3,10 @@ import 'package:loja_laravel/screens/product_screen.dart';
 import 'package:loja_laravel/utils/data.dart';
 
 class ProductsList extends StatefulWidget {
+  ProductsList({Key key, this.title, this.products}): super(key: key);
+  final String title;
+  final List products;
+
   @override
   _ProductsListState createState() => _ProductsListState();
 }
@@ -13,6 +17,15 @@ class _ProductsListState extends State<ProductsList> {
     var data = new GraphQLData();
     var products = data.products;
     var category = data.category;
+    var title = category["title"];
+
+    if (widget.title != null) {
+      title = widget.title;
+    }
+
+    if (widget.products != null) {
+      products = widget.products;
+    }
 
     if (products.length == 0) {
       return Center(
@@ -33,7 +46,7 @@ class _ProductsListState extends State<ProductsList> {
           child: ListTile(
             leading: Icon(Icons.arrow_forward_ios),
             title: Text(
-                category["title"],
+                title,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold

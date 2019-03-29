@@ -5,8 +5,9 @@ import 'package:loja_laravel/widgets/categories/query.dart';
 class ThemeStore extends StatefulWidget {
   final String title;
   final Function builder;
+  final Function nextPage;
   
-  ThemeStore({Key key, this.title, this.builder}) : super(key: key);
+  ThemeStore({Key key, this.title, this.builder, this.nextPage}) : super(key: key);
 
   @override
   _ThemeStoreState createState() => _ThemeStoreState();
@@ -14,6 +15,9 @@ class ThemeStore extends StatefulWidget {
 
 class _ThemeStoreState extends State<ThemeStore> {
   final ScrollController _scrollController = new ScrollController();
+  
+  bool _paginationLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -53,9 +57,30 @@ class _ThemeStoreState extends State<ThemeStore> {
               ),
               backgroundColor: Colors.transparent,
               drawer: ThemeDrawer(),
-              body: SingleChildScrollView(
-                controller: _scrollController,
-                child: widget.builder(),
+              body: NotificationListener(
+                onNotification: (ScrollNotification notification) {
+                  if (notification is ScrollUpdateNotification) {
+                    var bottomPosition = _scrollController.position.maxScrollExtent - _scrollController.offset;
+                    if (bottomPosition <= 100 && !_paginationLoading) {
+                      if (widget.nextPage != null) {
+                        final callback = () async {
+                          setState(() {
+                            _paginationLoading = true;
+                          });
+                          await widget.nextPage();
+                          setState(() {
+                            _paginationLoading = false;
+                          });
+                        };
+                        callback();
+                      }
+                    }
+                  }
+                },
+                child:  SingleChildScrollView(
+                  controller: _scrollController,
+                  child: widget.builder(),
+                ),
               )
             );
           },

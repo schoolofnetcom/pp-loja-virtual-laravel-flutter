@@ -17,8 +17,21 @@ class CategoryQuery extends Query
         return Type::listOf(\GraphQL::type('category'));
     }
 
-    public function resolve()
+    public function args()
     {
+        return [
+            'id' => [
+                'name' => 'id',
+                'type' => Type::int()
+            ]
+        ];
+    }
+
+    public function resolve($root, $args)
+    {
+        if (isset($args['id'])) {
+            return Category::where('id', $args['id'])->get();
+        }
         return Category::all();
     }
 }

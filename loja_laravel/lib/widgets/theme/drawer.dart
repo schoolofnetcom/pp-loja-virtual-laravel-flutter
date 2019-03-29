@@ -30,6 +30,15 @@ class _ThemeDrawerState extends State<ThemeDrawer> {
         child: Column(
           children: <Widget>[
             ProductsSearch(),
+            ListTile(
+              title: Text('Home'),
+              leading: Icon(Icons.home),
+              onTap: () {
+                var data = new GraphQLData();
+                data.categoryId = "0";
+                Navigator.pushNamed(context, '/');
+              },
+            ),
             Expanded(
               child: ListView.builder(
                 itemCount: categories.length,

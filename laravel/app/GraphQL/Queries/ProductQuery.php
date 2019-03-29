@@ -17,8 +17,26 @@ class ProductQuery extends Query
         return Type::listOf(\GraphQL::type('product'));
     }
 
-    public function resolve()
+    public function args()
     {
+        return [
+            'term' => [
+                'name' => 'term',
+                'type' => Type::string()
+            ]
+        ];
+    }
+
+    public function resolve($root, $args)
+    {
+        if (isset($args['term'])) {
+            return Product::where([
+                ['active', true],
+                ['title', 'LIKE', '%'.$args['term'].'%']
+            ])
+            ->get();
+        }
+        
         return Product::where([
                 ['active', true],
                 ['featured', true],
