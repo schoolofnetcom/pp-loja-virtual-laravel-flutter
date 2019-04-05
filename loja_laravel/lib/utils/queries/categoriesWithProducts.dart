@@ -7,7 +7,10 @@ String categoriesWithProducts = """
     description,
     stock,
     price,
-    formatedPrice
+    formatedPrice,
+    images {
+      url
+    }
   },
   categories {
     id,
@@ -23,7 +26,10 @@ String categoriesWithProducts = """
         description,
         stock,
         price,
-        formatedPrice
+        formatedPrice,
+        images {
+          url
+        }
       }
     }
   }

@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class)->orderBy('cover', 'desc');
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'categories_has_products');

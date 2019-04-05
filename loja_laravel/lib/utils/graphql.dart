@@ -5,7 +5,7 @@ class GraphQL {
   static ValueNotifier<Client> client() {
     return ValueNotifier(
       Client(
-        endPoint: 'https://159adc20.ngrok.io/graphql',
+        endPoint: 'https://83a36a23.ngrok.io/graphql',
         cache: InMemoryCache()
       )
     );

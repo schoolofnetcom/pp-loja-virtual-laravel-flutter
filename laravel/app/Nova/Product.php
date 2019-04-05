@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Number;
@@ -73,7 +74,8 @@ class Product extends Resource
                 Number::make('Diâmetro', 'diameter')->help('Valor em centimetros')->hideFromIndex(),
             ]),
 
-            BelongsToMany::make(__('Categories'), 'categories', 'App\Nova\Category')
+            HasMany::make(__('Images'), 'images', 'App\Nova\ProductImage')->singularLabel(__('Image')),
+            BelongsToMany::make(__('Categories'), 'categories', 'App\Nova\Category'),
         ];
     }
 

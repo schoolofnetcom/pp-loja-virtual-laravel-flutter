@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loja_laravel/screens/product_screen.dart';
 import 'package:loja_laravel/utils/data.dart';
+import 'package:loja_laravel/widgets/products/images.dart';
 
 class ProductsList extends StatefulWidget {
   ProductsList({Key key, this.title, this.products}): super(key: key);
@@ -65,7 +66,7 @@ class _ProductsListState extends State<ProductsList> {
             return GestureDetector(
               child: Column(
                 children: <Widget>[
-                  Image.network('https://picsum.photos/450/250?image=' + index.toString()),
+                  ProductsImages(images: product["images"],),
                   ListTile(
                     title: Text(product["title"]),
                     subtitle: Text(product["formatedPrice"]),
@@ -77,7 +78,7 @@ class _ProductsListState extends State<ProductsList> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ProductScreen()
+                    builder: (context) => ProductScreen(product: product,)
                   )
                 );
               },

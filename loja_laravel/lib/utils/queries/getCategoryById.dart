@@ -14,7 +14,10 @@ query getCategoryById(\$id: Int, \$page: Int){
         description,
         stock,
         price,
-        formatedPrice
+        formatedPrice,
+        images {
+          url
+        }
       }
     }
   }

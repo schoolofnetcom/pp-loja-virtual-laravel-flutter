@@ -45,6 +45,10 @@ class ProductType extends GraphQLType
                 "type" => Type::nonNull(Type::string()),
                 'description' => 'The formated price of the product'
             ],
+            'images' => [
+                'type' => Type::listOf(\GraphQL::type('product_imagem')),
+                'description' => 'List of images'
+            ]
         ];
     }
 

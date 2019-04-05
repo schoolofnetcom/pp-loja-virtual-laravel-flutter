@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:loja_laravel/widgets/theme.dart';
+import 'package:loja_laravel/widgets/products/images.dart';
 
 class ProductScreen extends StatefulWidget {
+  Map product = {};
+  ProductScreen({Key key, this.product}) :super(key:key);
+
   @override
   _ProductScreenState createState() => _ProductScreenState();
 }
@@ -9,15 +13,7 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
-    Map _product = {
-      "id": 1,
-      "title": 'Notebook gamer',
-      "sku": 'note-gamer',
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur erat sit amet lacus egestas mollis. Quisque mollis sed ligula in consectetur. Curabitur faucibus hendrerit turpis, at imperdiet velit pulvinar eu. Pellentesque gravida velit et lectus elementum, in semper metus mattis. Curabitur non massa eleifend metus vulputate pretium. Nullam volutpat non nunc vitae dictum. Morbi posuere, nulla a ultrices fringilla, massa odio gravida mi, nec commodo nisl magna non orci. Morbi tristique dui eget metus molestie, eu elementum nibh fringilla.",
-      "stock": 10,
-      "price": 3500,
-      "formatedPrice": "R\$ 3.500,00"
-    };
+    Map _product = widget.product;
     
     return ThemeStore(
       title: _product["title"],
@@ -25,7 +21,7 @@ class _ProductScreenState extends State<ProductScreen> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Image.network('https://picsum.photos/450/250?image=50'),
+            ProductsImages(images: _product["images"]),
             Divider(),
             ListTile(
               title: Text(_product["title"], style: Theme.of(context).textTheme.title,),

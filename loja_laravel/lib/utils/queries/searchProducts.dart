@@ -7,7 +7,10 @@ query search(\$term: String) {
     description,
     stock,
     price,
-    formatedPrice
+    formatedPrice,
+    images {
+      url
+    }
   }
 }
 

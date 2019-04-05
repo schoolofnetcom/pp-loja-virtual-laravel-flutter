@@ -124,7 +124,8 @@ return [
     //
     'types' => [
         'product' => \App\GraphQL\Types\ProductType::class,
-        'category' => \App\GraphQL\Types\CategoryType::class
+        'category' => \App\GraphQL\Types\CategoryType::class,
+        'product_imagem' => \App\GraphQL\Types\ProductImageType::class,
         // 'example'           => ExampleType::class,
         // 'relation_example'  => ExampleRelationType::class,
     ],
