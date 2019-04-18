@@ -56,7 +56,7 @@ class GraphQLData {
     final int to = _categories[_categoryKey]['products']["to"];
     final int total = _categories[_categoryKey]['products']["total"];
 
-    if (to == null && to > total) {
+    if (to == null && to > total) { // TODO: corrigir para if (to == null || to >= total) {
       return null;
     }
 

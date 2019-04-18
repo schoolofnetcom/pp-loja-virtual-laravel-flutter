@@ -103,14 +103,24 @@ return [
         'default' => [
             'query' => [
                 'categories' => \App\GraphQL\Queries\CategoryQuery::class,
-                'products' => \App\GraphQL\Queries\ProductQuery::class
+                'products' => \App\GraphQL\Queries\ProductQuery::class,
             ],
             'mutation' => [
-                // 'example_mutation'  => ExampleMutation::class,
+                'userRegister' => \App\GraphQL\Mutation\Register::class,
             ],
             'middleware' => [],
             'method' => ['get', 'post'],
         ],
+        'auth' => [
+            'query' => [
+                'categories' => \App\GraphQL\Queries\CategoryQuery::class,
+            ],
+            'mutation' => [
+                'address' => \App\GraphQL\Mutation\AddressMutation::class,
+            ],
+            'middleware' => ['auth:api'],
+            'method' => ['get', 'post']
+        ]
     ],
 
     // The types available in the application. You can then access it from the
@@ -126,6 +136,7 @@ return [
         'product' => \App\GraphQL\Types\ProductType::class,
         'category' => \App\GraphQL\Types\CategoryType::class,
         'product_imagem' => \App\GraphQL\Types\ProductImageType::class,
+        'user' => \App\GraphQL\Types\UserType::class,
         // 'example'           => ExampleType::class,
         // 'relation_example'  => ExampleRelationType::class,
     ],

@@ -49,6 +49,6 @@ class CategoryType extends GraphQLType
         return $root
             ->products()
             ->where('active', true)
-            ->paginate();
+            ->paginate(2);
     }
 }

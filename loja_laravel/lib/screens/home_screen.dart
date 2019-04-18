@@ -21,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
       title: 'Erik\'s Stores',
       nextPage: () {
         if (data.categoryId != 0 && data.nextPage != null) {
+          print(data.nextPage);
           final Client client = GraphQL.client().value;
           return client.query(
             query: query.getCategoryById,

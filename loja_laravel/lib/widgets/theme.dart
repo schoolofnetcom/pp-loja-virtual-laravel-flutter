@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loja_laravel/widgets/theme/drawer.dart';
 import 'package:loja_laravel/widgets/categories/query.dart';
+import 'package:loja_laravel/screens/cart_screen.dart';
 
 class ThemeStore extends StatefulWidget {
   final String title;
@@ -50,7 +51,12 @@ class _ThemeStoreState extends State<ThemeStore> {
                   IconButton(
                     icon: Icon(Icons.shopping_cart),
                     onPressed: () {
-                      print('open cart');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CartScreen()
+                        )
+                      );
                     },
                   )
                 ],
